@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>창업마케팅 일일 리포트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F5F3F9;
+    --card: #FFFFFF;
+    --border: #E4E0ED;
+    --border-strong: #D3CCE6;
+    --ink: #1C1B29;
+    --sub: #6C6880;
+    --mute: #9C97AE;
+    --purple: #5B3DE0;
+    --purple-dark: #3C2996;
+    --purple-50: #EEEDFE;
+    --teal: #0F8A6C;
+    --teal-50: #E1F5EE;
+    --coral: #C24A2D;
+    --coral-50: #FBEAE4;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Segoe UI",sans-serif;
+    font-size:14px;line-height:1.55;padding:28px 20px 80px;
+  }
+  .wrap{max-width:1440px;margin:0 auto;}
+  .main-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
+  .main-grid .card{margin-bottom:0;}
+  .full-span{grid-column:1 / -1;}
+  @media (max-width:980px){
+    .main-grid{grid-template-columns:1fr;}
+  }
+  .num{font-family:"Space Grotesk",-apple-system,sans-serif;font-variant-numeric:tabular-nums;}
+
+  .topbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:22px;}
+  .brand{font-family:"Space Grotesk";font-weight:700;font-size:20px;letter-spacing:-0.02em;color:var(--purple-dark);margin-right:auto;}
+  .brand span{color:var(--mute);font-weight:500;font-size:13px;display:block;margin-top:2px;font-family:inherit;letter-spacing:0;}
+  input[type=date]{border:1px solid var(--border-strong);border-radius:10px;padding:8px 10px;font-size:14px;background:var(--card);color:var(--ink);}
+  button{font-family:inherit;font-size:13px;font-weight:600;border-radius:10px;padding:9px 14px;cursor:pointer;border:1px solid var(--border-strong);background:var(--card);color:var(--ink);transition:transform .08s ease;}
+  button:active{transform:scale(0.97);}
+  button.primary{background:var(--purple);border-color:var(--purple);color:#fff;}
+  button.ghost{border:1px dashed var(--border-strong);color:var(--sub);background:transparent;}
+  button.small{padding:4px 9px;font-size:12px;font-weight:500;}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:16px;}
+  .card.muted{background:transparent;border-style:dashed;}
+  .card h2{font-size:15px;font-weight:700;margin:0 0 4px;display:flex;align-items:center;gap:8px;}
+  .card h2 .idx{font-family:"Space Grotesk";font-size:12px;font-weight:600;color:#fff;background:var(--purple);border-radius:6px;padding:2px 7px;}
+  .card h2 .idx.tag{background:var(--mute);}
+  .card .desc{color:var(--sub);font-size:12.5px;margin:0 0 16px;}
+
+  table{width:100%;border-collapse:collapse;}
+  th{text-align:left;font-size:11.5px;font-weight:600;color:var(--mute);text-transform:uppercase;letter-spacing:.02em;padding:0 8px 8px;border-bottom:1px solid var(--border);}
+  td{padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  td input, td select{width:100%;border:1px solid transparent;background:transparent;font-family:inherit;font-size:13.5px;color:var(--ink);border-radius:7px;padding:5px 6px;}
+  td input:hover, td select:hover{border-color:var(--border-strong);}
+  td input:focus, td select:focus{outline:none;border-color:var(--purple);background:var(--purple-50);}
+  td input[type=number]{font-family:"Space Grotesk";text-align:right;}
+  .rm{color:var(--coral);cursor:pointer;font-size:12px;font-weight:600;background:none;border:none;padding:4px 6px;}
+
+  .row-total td{font-weight:700;background:var(--purple-50);border-top:1px solid var(--border-strong);}
+  .row-total input{font-weight:700;}
+
+  .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;}
+  .metric{background:var(--purple-50);border-radius:11px;padding:12px 14px;}
+  .metric label{display:block;font-size:11.5px;color:var(--purple-dark);font-weight:600;margin-bottom:6px;}
+  .metric .unit-row{display:flex;align-items:baseline;gap:4px;}
+  .metric input{width:100%;border:none;background:transparent;font-family:"Space Grotesk";font-size:19px;font-weight:600;color:var(--ink);padding:0;}
+  .metric input:focus{outline:none;}
+  .metric .suffix{font-size:12px;color:var(--sub);white-space:nowrap;}
+  .metric.na{background:var(--coral-50);}
+  .metric.na label{color:var(--coral);}
+  .metric.stat{background:var(--teal-50);}
+  .metric.stat label{color:var(--teal);}
+  .metric.stat .val{font-family:"Space Grotesk";font-size:19px;font-weight:600;}
+  .metric.stat .val.na{color:var(--coral);font-size:14px;font-weight:600;}
+
+  .subhead{font-size:12.5px;font-weight:700;color:var(--sub);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.03em;}
+  .subhead.first{margin-top:0;}
+
+  .bar-row{display:flex;align-items:center;gap:10px;padding:5px 0;}
+  .bar-rank{font-family:"Space Grotesk";font-size:12px;font-weight:700;color:#fff;background:var(--mute);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .bar-rank.r1{background:var(--purple);}
+  .bar-track{flex:1;height:22px;background:var(--purple-50);border-radius:6px;overflow:hidden;position:relative;}
+  .bar-fill{height:100%;background:var(--purple);border-radius:6px;transition:width .3s ease;}
+  .bar-label{position:absolute;left:8px;top:0;bottom:0;display:flex;align-items:center;font-size:12px;font-weight:600;color:var(--purple-dark);z-index:2;}
+  .bar-pct{font-family:"Space Grotesk";font-weight:700;font-size:13px;width:44px;text-align:right;flex-shrink:0;}
+
+  .resp-list{display:flex;flex-direction:column;gap:6px;}
+  .resp-row{display:flex;align-items:center;gap:10px;padding:6px 4px;border-bottom:1px solid var(--border);}
+  .resp-row:last-child{border-bottom:none;}
+  .resp-row input.name{flex:1;font-weight:600;}
+
+  .add-btn{margin-top:8px;}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+  .report-box{width:100%;min-height:240px;border:1px solid var(--border-strong);border-radius:10px;padding:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.6;color:var(--ink);background:#FBFAFE;resize:vertical;white-space:pre;}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;transition:all .25s ease;pointer-events:none;z-index:50;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .footnote{font-size:11.5px;color:var(--mute);margin-top:6px;}
+  .override-row{display:flex;align-items:center;gap:8px;margin-top:10px;}
+  .override-row input{width:120px;border:1px solid var(--border-strong);border-radius:8px;padding:6px 8px;font-family:"Space Grotesk";}
+
+  .kpi-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .kpi-groups{display:flex;flex-direction:column;gap:16px;}
+  .hero-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .kpi.hero{padding:14px 14px;background:var(--purple);}
+  .kpi.hero label{color:#DCD6FA;}
+  .kpi.hero .v{color:#fff;font-size:22px;}
+  .kpi.hero .v.na{color:#FFD9CC;font-size:14px;}
+  .kpi-group-title{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px;}
+  .kpi-group-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;}
+  .kpi{flex:1 1 108px;background:var(--purple-50);border-radius:11px;padding:10px 12px;min-width:100px;}
+  .kpi.auto{background:var(--teal-50);}
+  .kpi.manual{background:var(--purple-50);}
+  .kpi label{display:block;font-size:10.5px;font-weight:600;color:var(--purple-dark);text-transform:uppercase;letter-spacing:.02em;margin-bottom:4px;}
+  .kpi.auto label{color:var(--teal);}
+  .kpi .v{font-family:"Space Grotesk";font-size:18px;font-weight:600;}
+  .kpi .v.na{font-size:12.5px;color:var(--coral);font-weight:600;}
+  .chart-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-top:18px;}
+  @media (max-width:720px){.chart-grid{grid-template-columns:1fr;}}
+
+  .mini-bar-list{display:flex;flex-direction:column;gap:7px;max-height:260px;overflow-y:auto;padding-right:2px;}
+  .mini-bar-row{display:flex;align-items:center;gap:8px;}
+  .mini-bar-rank{font-family:"Space Grotesk";font-size:10.5px;font-weight:700;color:#fff;background:var(--mute);width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .mini-bar-rank.r1{background:var(--purple);}
+  .mini-bar-track{flex:1;height:20px;background:var(--purple-50);border-radius:6px;overflow:hidden;position:relative;min-width:0;}
+  .mini-bar-fill{height:100%;background:var(--purple);border-radius:6px;transition:width .3s ease;}
+  .mini-bar-label{position:absolute;left:7px;top:0;bottom:0;display:flex;align-items:center;font-size:11px;font-weight:600;color:var(--purple-dark);z-index:2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 10px);}
+  .mini-bar-pct{font-family:"Space Grotesk";font-weight:700;font-size:12px;width:38px;text-align:right;flex-shrink:0;}
+  .mini-bar-empty{color:var(--mute);font-size:12.5px;padding:12px 0;}
+  .mini-bar-more{color:var(--mute);font-size:11.5px;margin-top:2px;}
+
+  .mini-line-chart svg{width:100%;height:auto;display:block;}
+  .mini-legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:11.5px;color:var(--sub);}
+  .mini-legend .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+  .mini-line-empty{color:var(--mute);font-size:12.5px;padding:30px 0;text-align:center;}
+
+  /* ---------- mobile ---------- */
+  @media (max-width:600px){
+    body{padding:16px 12px 70px;font-size:14.5px;}
+    .wrap{max-width:100%;}
+    .card{padding:16px 14px;border-radius:12px;}
+    .topbar{gap:8px;margin-bottom:16px;}
+    .brand{font-size:16.5px;flex:1 1 100%;}
+    .topbar input[type=date]{flex:1 1 auto;}
+    .topbar button{flex:0 0 auto;padding:9px 12px;}
+    .card h2{font-size:14.5px;}
+    .hero-row{grid-template-columns:repeat(3,1fr);gap:6px;}
+    .kpi.hero{padding:10px 8px;}
+    .kpi.hero label{font-size:9.5px;}
+    .kpi.hero .v{font-size:16.5px;}
+    .kpi.hero .v.na{font-size:11px;}
+    .kpi-group-grid{grid-template-columns:repeat(2,1fr);gap:7px;}
+    .kpi{padding:9px 10px;}
+    .kpi .v{font-size:16px;}
+    .metric-grid{grid-template-columns:repeat(2,1fr);}
+    .metric{padding:10px 11px;}
+    .metric input{font-size:17px;}
+    table{font-size:12.5px;}
+    th{font-size:10px;padding:0 5px 6px;}
+    td{padding:5px 5px;}
+    .chart-grid{gap:14px;}
+    .mini-bar-list{max-height:220px;}
+    .actions{gap:6px;}
+    .actions button{flex:1 1 auto;}
+  }
+  @media (max-width:360px){
+    .hero-row{grid-template-columns:1fr 1fr;}
+    .hero-row .kpi:nth-child(1){grid-column:1 / -1;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">창업마케팅 일일 리포트<span>옆커폰 · 창업마케팅팀</span></div>
+    <input type="date" id="dateInput">
+    <button id="loadBtn">불러오기</button>
+    <button id="resetBtn">오늘 기록 초기화</button>
+    <button class="primary" id="saveBtn">저장</button>
+  </div>
+
+  <!-- 요약 대시보드 (입력과 분리된 시각화 전용) -->
+  <div class="card" style="border-color:var(--border-strong);">
+    <h2><span class="idx tag">요약</span>한눈에 보기</h2>
+    <p class="desc">아래 입력 내용을 기준으로 자동 갱신됩니다. 이 카드는 보기 전용입니다.</p>
+    <div class="kpi-groups" id="kpiRow"></div>
+    <div class="chart-grid">
+      <div>
+        <div class="subhead first">지역별 미팅성사율 TOP 3</div>
+        <div id="regionChartTop" class="mini-bar-list"></div>
+      </div>
+      <div>
+        <div class="subhead first">누적 추이 (14일)</div>
+        <div id="trendChartTop" class="mini-line-chart"></div>
+        <div id="trendLegend" class="mini-legend"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+  <!-- 1. DB 현황 -->
+  <div class="card">
+    <h2><span class="idx">1</span>DB 현황</h2>
+    <p class="desc">채널별 창업 DB 문의량. 합계는 자동 계산됩니다.</p>
+    <p class="footnote" id="note_db" style="margin:-4px 0 14px;"></p>
+    <table>
+      <thead><tr><th style="width:60%">채널</th><th style="width:25%">건수</th><th></th></tr></thead>
+      <tbody id="dbChannelBody"></tbody>
+      <tfoot><tr class="row-total"><td>오늘 합계</td><td><span id="dbTotal" class="num">0</span></td><td></td></tr></tfoot>
+    </table>
+    <button class="ghost add-btn small" onclick="addRow('dbChannelBody','db')">+ 채널 추가</button>
+
+    <div class="subhead">이번 달 누적</div>
+    <div class="metric-grid">
+      <div class="metric stat"><label>이번 달 누적 DB (자동계산)</label><div class="val num" id="monthCumulDisplay">0건</div></div>
+    </div>
+    <div class="override-row">
+      <span class="footnote" style="margin:0;">누적이 실제와 다르면 직접 맞추기:</span>
+      <input type="number" id="monthOverride" placeholder="예: 256">
+      <button class="small" id="applyOverride">적용</button>
+    </div>
+    <p class="footnote">날짜별로 "저장"을 눌러야 그날 건수가 이번 달 누적에 더해집니다.</p>
+  </div>
+
+  <!-- 2. 기준 창업데이터 -->
+  <div class="card">
+    <h2><span class="idx">2</span>기준 창업데이터</h2>
+    <p class="desc">계약 건수·품질율·매출·지출을 직접 입력하면 나머지(DB당 단가·CAC·전환율 등)는 1번(이번 달 누적 DB)과 3번(지역 데이터)을 분모로 자동 계산됩니다. 미수금은 아래 월별 리스트로 직접 관리합니다.</p>
+    <p class="footnote" id="note_metrics" style="margin:-4px 0 14px;"></p>
+
+    <div class="subhead first">수기 입력</div>
+    <div class="metric-grid">
+      <div class="metric na" id="card_contracts"><label>계약 건수</label><div class="unit-row"><input type="number" id="m_contracts" class="num" placeholder="측정불가"><span class="suffix">건</span></div></div>
+      <div class="metric na" id="card_quality"><label>DB 품질율(긍정)</label><div class="unit-row"><input type="number" id="m_quality" class="num" placeholder="측정불가"><span class="suffix">%</span></div></div>
+      <div class="metric na" id="card_revenue"><label>매출</label><div class="unit-row"><input type="number" id="m_revenue" class="num" placeholder="측정불가"><span class="suffix">만원</span></div></div>
+      <div class="metric na" id="card_spend"><label>지출</label><div class="unit-row"><input type="number" id="m_spend" class="num" placeholder="측정불가"><span class="suffix">만원</span></div></div>
+    </div>
+
+    <div class="subhead">자동 계산 (분모: 이번 달 누적 창업 DB)</div>
+    <div class="metric-grid">
+      <div class="metric stat"><label>DB당 단가 (누적 DB 기준)</label><div class="val" id="stat_dbCost">측정불가</div></div>
+      <div class="metric stat"><label>CAC 단가</label><div class="val" id="stat_cac">측정불가</div></div>
+      <div class="metric stat"><label>미팅성사율 (3번 지역데이터 기준)</label><div class="val" id="stat_meeting">측정불가</div></div>
+      <div class="metric stat"><label>DB 전환율(계약율, 누적 DB 기준)</label><div class="val" id="stat_conv">측정불가</div></div>
+    </div>
+
+    <div class="subhead">미수금 현황 (월별, 수기 관리)</div>
+    <p class="footnote" style="margin:-4px 0 8px;">아직 걷히지 않은 금액을 발생 월별로 직접 추가·수정·삭제하세요. 걷히면 행을 지우거나 금액을 줄이면 됩니다.</p>
+    <table>
+      <thead><tr><th style="width:55%">월/구분</th><th style="width:30%">금액(만원)</th><th></th></tr></thead>
+      <tbody id="receivableBody"></tbody>
+      <tfoot><tr class="row-total"><td>합계</td><td><span id="receivableTotal" class="num">0</span></td><td></td></tr></tfoot>
+    </table>
+    <button class="ghost add-btn small" onclick="addRow('receivableBody','receivable')">+ 항목 추가</button>
+  </div>
+
+  <!-- 3. 지역별 미팅성사율 (was section 4) -->
+  <div class="card">
+    <h2><span class="idx">3</span>지역별 미팅 성사율</h2>
+    <p class="desc">DB건수·미팅건수를 입력하면 미팅성사율 기준 자동 순위 + 2번의 "미팅성사율" 값으로 반영됩니다.</p>
+    <p class="footnote" id="note_region" style="margin:-4px 0 14px;"></p>
+    <table>
+      <thead><tr><th style="width:26%">지역</th><th style="width:16%">DB건수</th><th style="width:16%">미팅건수</th><th style="width:16%">계약건수</th><th></th></tr></thead>
+      <tbody id="regionBody"></tbody>
+    </table>
+    <button class="ghost add-btn small" onclick="addRow('regionBody','region')">+ 지역 추가</button>
+
+    <div class="subhead">미팅성사율 순위 (요약)</div>
+    <div id="regionRanking"></div>
+    <p class="footnote" id="regionTotalNote"></p>
+  </div>
+
+  <!-- 4. 응대현황 (was section 5) -->
+  <div class="card">
+    <h2><span class="idx">4</span>응대 현황</h2>
+    <p class="desc">지역장님별 처리 완료 일자.</p>
+    <p class="footnote" id="note_resp" style="margin:-4px 0 14px;"></p>
+    <div class="resp-list" id="respList"></div>
+    <button class="ghost add-btn small" onclick="addRow('respList','resp')">+ 지역장 추가</button>
+  </div>
+  </div>
+
+  <!-- 보고용 텍스트 -->
+  <div class="card">
+    <h2><span class="idx">R</span>보고용 텍스트</h2>
+    <p class="desc">1·2·3·4번 데이터 기준으로 보고방 형식에 맞춰 자동 생성됩니다. (매체별 광고비 상세는 포함되지 않습니다)</p>
+    <div class="actions">
+      <button class="primary" onclick="generateReport()">텍스트 생성</button>
+      <button onclick="copyReport()">복사</button>
+    </div>
+    <textarea class="report-box" id="reportBox" style="margin-top:12px;" placeholder="위 항목을 입력하고 '텍스트 생성'을 누르면 보고방에 붙여넣을 텍스트가 여기에 생성됩니다."></textarea>
+  </div>
+
+  <!-- 매체별 광고비 - 맨 아래, 보고서 미반영, 참고자료용 -->
+  <div class="card muted">
+    <h2><span class="idx tag">참고</span>매체별 광고비 (상세)</h2>
+    <p class="desc">여기 입력한 오늘 합계가 이번 달 누적 지출로 쌓입니다. 2번의 "지출"은 이 표와 별개로 수기 입력하며, 이 카드는 참고용 상세 내역으로 보고용 텍스트에는 포함되지 않습니다.</p>
+    <table>
+      <thead><tr><th style="width:55%">채널</th><th style="width:30%">금액(만원)</th><th></th></tr></thead>
+      <tbody id="adChannelBody"></tbody>
+      <tfoot><tr class="row-total"><td>오늘 합계</td><td><span id="adTotal" class="num">0</span></td><td></td></tr></tfoot>
+    </table>
+    <button class="ghost add-btn small" onclick="addRow('adChannelBody','ad')">+ 채널 추가</button>
+
+    <div class="subhead">이번 달 누적 지출</div>
+    <div class="metric-grid">
+      <div class="metric stat"><label>이번 달 누적 지출 (자동계산)</label><div class="val num" id="adMonthCumulDisplay">0만원</div></div>
+    </div>
+    <div class="override-row">
+      <span class="footnote" style="margin:0;">누적 지출이 실제와 다르면 직접 맞추기:</span>
+      <input type="number" id="adMonthOverride" placeholder="예: 12000">
+      <button class="small" id="applyAdOverride">적용</button>
+    </div>
+    <p class="footnote">날짜별로 "저장"을 눌러야 그날 지출이 이번 달 누적에 더해집니다.</p>
+  </div>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let uid = 0;
+const newId = () => 'r' + (uid++);
+
+const defaultConfig = () => ({
+  dbChannels: [{id:newId(), name:'홈페이지', value:0}],
+  adChannels: [
+    {id:newId(), name:'당근', value:0},
+    {id:newId(), name:'메타', value:0},
+    {id:newId(), name:'네이버', value:0},
+    {id:newId(), name:'구글', value:0},
+    {id:newId(), name:'토스', value:0},
+    {id:newId(), name:'박람회 운영비', value:0},
+  ],
+  regions: [
+    {id:newId(), name:'부산', db:20, meeting:5, contract:0},
+    {id:newId(), name:'울산', db:18, meeting:4, contract:0},
+    {id:newId(), name:'서울', db:41, meeting:7, contract:0},
+    {id:newId(), name:'전남', db:50, meeting:6, contract:0},
+    {id:newId(), name:'대전', db:32, meeting:3, contract:0},
+    {id:newId(), name:'대구', db:27, meeting:2, contract:0},
+    {id:newId(), name:'인천', db:48, meeting:3, contract:0},
+    {id:newId(), name:'강원', db:10, meeting:0, contract:0},
+  ],
+  managers: [
+    '김동현','백진우','반재훈','김무성','강태영','이원영','권도형','편민우'
+  ].map(n => ({id:newId(), name:n, done:''})),
+  metrics: {contracts:'', quality:'', revenue:'', spend:''},
+  receivables: [
+    {id:newId(), name:'', value:0}
+  ],
+  savedDbTotal: 0,
+  savedAdTotal: 0
+});
+
+let state = defaultConfig();
+let monthTotal = 0;
+let liveMonthCumul = 0;
+let adMonthTotal = 0;
+let liveAdMonthCumul = 0;
+
+function getYearMonth(dateStr){ return dateStr.slice(0,7); }
+function todayStr(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+// ---------- reference-date helpers ----------
+// 1,2번 카드는 "전일 기준", 3번(지역별 미팅성사율)은 "영업일 기준 2일 전"(금·토·일 DB는
+// 월요일에 몰아서 배분되므로, 월요일에는 주말을 건너뛰어 지난 목/금 기준이 됨), 4번은 "당일 기준".
+function addDays(dateStr, delta){
+  const [y,m,d] = dateStr.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  dt.setDate(dt.getDate()+delta);
+  return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+}
+function dowOf(dateStr){
+  const [y,m,d] = dateStr.split('-').map(Number);
+  return new Date(y, m-1, d).getDay(); // 0=일 ... 6=토
+}
+function subtractBusinessDays(dateStr, n){
+  let cur = dateStr, count = 0;
+  while(count < n){
+    cur = addDays(cur, -1);
+    const dow = dowOf(cur);
+    if(dow !== 0 && dow !== 6) count++;
+  }
+  return cur;
+}
+function fmtMD(dateStr){
+  const [,m,d] = dateStr.split('-');
+  return `${Number(m)}/${Number(d)}`;
+}
+function getRefDates(){
+  const dateStr = document.getElementById('dateInput').value || todayStr();
+  return {
+    base: dateStr,
+    db: addDays(dateStr, -1),                    // 1,2번: 전일 기준
+    region: subtractBusinessDays(dateStr, 2),     // 3번: 영업일 2일 전 기준
+    resp: dateStr                                 // 4번: 당일 기준
+  };
+}
+function renderRefNotes(){
+  const rd = getRefDates();
+  const set = (id, txt) => { const el = document.getElementById(id); if(el) el.textContent = txt; };
+  set('note_db', `기준일 : ${fmtMD(rd.db)} (전일 기준)`);
+  set('note_metrics', `기준일 : ${fmtMD(rd.db)} (전일 기준)`);
+  set('note_region', `기준일 : ${fmtMD(rd.region)} (영업일 2일 전 기준 · 금·토·일 DB는 월요일에 배분되어, 월요일엔 주말을 건너뛴 목/금 기준이 됩니다)`);
+  set('note_resp', `기준일 : ${fmtMD(rd.resp)} (당일 기준)`);
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 1800);
+}
+function escapeHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ---------- render ----------
+function renderAll(){
+  renderTable('dbChannelBody', state.dbChannels, 'db');
+  renderTable('adChannelBody', state.adChannels, 'ad');
+  renderTable('regionBody', state.regions, 'region');
+  renderTable('receivableBody', state.receivables, 'receivable');
+  renderResp();
+
+  document.getElementById('m_contracts').value = state.metrics.contracts;
+  document.getElementById('m_quality').value = state.metrics.quality;
+  document.getElementById('m_revenue').value = state.metrics.revenue;
+  document.getElementById('m_spend').value = state.metrics.spend || '';
+  toggleAllNaCards();
+  renderRefNotes();
+
+  recalc();
+}
+
+function renderTable(bodyId, list, type){
+  const body = document.getElementById(bodyId);
+  body.innerHTML = '';
+  list.forEach(item=>{
+    const tr = document.createElement('tr');
+    if(type==='db' || type==='ad' || type==='receivable'){
+      tr.innerHTML = `
+        <td><input value="${escapeHtml(item.name)}" oninput="updateField('${type}','${item.id}','name',this.value)"></td>
+        <td><input type="number" class="num" value="${item.value}" oninput="updateField('${type}','${item.id}','value',this.value)"></td>
+        <td><button class="rm" onclick="removeRow('${type}','${item.id}')">삭제</button></td>`;
+    } else if(type==='region'){
+      tr.innerHTML = `
+        <td><input value="${escapeHtml(item.name)}" oninput="updateField('region','${item.id}','name',this.value)"></td>
+        <td><input type="number" class="num" value="${item.db}" oninput="updateField('region','${item.id}','db',this.value)"></td>
+        <td><input type="number" class="num" value="${item.meeting}" oninput="updateField('region','${item.id}','meeting',this.value)"></td>
+        <td><input type="number" class="num" value="${item.contract}" oninput="updateField('region','${item.id}','contract',this.value)"></td>
+        <td><button class="rm" onclick="removeRow('region','${item.id}')">삭제</button></td>`;
+    }
+    body.appendChild(tr);
+  });
+}
+
+function renderResp(){
+  const box = document.getElementById('respList');
+  box.innerHTML = '';
+  state.managers.forEach(item=>{
+    const row = document.createElement('div');
+    row.className = 'resp-row';
+    row.innerHTML = `
+      <input class="name" placeholder="이름" value="${escapeHtml(item.name)}" oninput="updateField('resp','${item.id}','name',this.value)">
+      <input type="date" value="${item.done}" oninput="updateField('resp','${item.id}','done',this.value)">
+      <button class="rm" onclick="removeRow('resp','${item.id}')">삭제</button>`;
+    box.appendChild(row);
+  });
+}
+
+// ---------- field updates ----------
+function listFor(type){
+  return {db:state.dbChannels, ad:state.adChannels, region:state.regions, resp:state.managers, receivable:state.receivables}[type];
+}
+function updateField(type, id, key, value){
+  const list = listFor(type);
+  const item = list.find(x=>x.id===id);
+  if(!item) return;
+  if(key==='value' || key==='db' || key==='meeting' || key==='contract'){
+    item[key] = value === '' ? 0 : Number(value);
+  } else {
+    item[key] = value;
+  }
+  recalc();
+}
+const STANDARD_REGIONS = ['부산','울산','서울','전남','대전','대구','인천','강원'];
+function ensureStandardRegions(){
+  const existingNames = new Set(state.regions.map(r=>r.name));
+  STANDARD_REGIONS.forEach(name=>{
+    if(!existingNames.has(name)){
+      state.regions.push({id:newId(), name, db:0, meeting:0, contract:0});
+    }
+  });
+}
+
+function addRow(bodyId, type){
+  const list = listFor(type);
+  if(type==='db' || type==='ad' || type==='receivable') list.push({id:newId(), name:'', value:0});
+  else if(type==='region') list.push({id:newId(), name:'', db:0, meeting:0, contract:0});
+  else if(type==='resp') list.push({id:newId(), name:'', done:''});
+  renderAll();
+}
+function removeRow(type, id){
+  const list = listFor(type);
+  const idx = list.findIndex(x=>x.id===id);
+  if(idx>-1) list.splice(idx,1);
+  renderAll();
+}
+
+// ---------- manual metric inputs ----------
+['contracts','quality','revenue','spend'].forEach(key=>{
+  document.getElementById('m_'+key).addEventListener('input', e=>{
+    state.metrics[key] = e.target.value;
+    toggleNaCard(key);
+    recalc();
+  });
+});
+function toggleNaCard(key){
+  const card = document.getElementById('card_'+key);
+  const val = state.metrics[key];
+  if(card) card.classList.toggle('na', val==='' || val===null || val===undefined);
+}
+function toggleAllNaCards(){ ['contracts','quality','revenue','spend'].forEach(toggleNaCard); }
+
+// ---------- month cumulative override ----------
+document.getElementById('applyOverride').addEventListener('click', ()=>{
+  const v = document.getElementById('monthOverride').value;
+  if(v === '') return;
+  const dbTotalNow = state.dbChannels.reduce((s,i)=>s+(Number(i.value)||0),0);
+  monthTotal = Number(v);
+  state.savedDbTotal = dbTotalNow;
+  document.getElementById('monthOverride').value = '';
+  recalc();
+  showToast('이번 달 누적을 '+Number(v).toLocaleString()+'건으로 맞췄습니다. 저장을 눌러 확정하세요.');
+});
+
+document.getElementById('applyAdOverride').addEventListener('click', ()=>{
+  const v = document.getElementById('adMonthOverride').value;
+  if(v === '') return;
+  const adTotalNow = state.adChannels.reduce((s,i)=>s+(Number(i.value)||0),0);
+  adMonthTotal = Number(v);
+  state.savedAdTotal = adTotalNow;
+  document.getElementById('adMonthOverride').value = '';
+  recalc();
+  showToast('이번 달 누적 지출을 '+Number(v).toLocaleString()+'만원으로 맞췄습니다. 저장을 눌러 확정하세요.');
+});
+
+// ---------- calculations ----------
+function fmtStat(val, suffix, decimals){
+  if(val===null || val===undefined || isNaN(val)) return '측정불가';
+  return val.toFixed(decimals===undefined?0:decimals) + suffix;
+}
+
+function getRegionAggregates(){
+  const rows = state.regions
+    .map(r=>({...r, rate: r.db>0 ? (r.meeting/r.db*100) : 0}))
+    .filter(r=>r.name)
+    .sort((a,b)=>b.rate-a.rate);
+  const totalDb = rows.reduce((s,r)=>s+r.db,0);
+  const totalMeeting = rows.reduce((s,r)=>s+r.meeting,0);
+  const totalContract = rows.reduce((s,r)=>s+r.contract,0);
+  const totalRate = totalDb>0 ? (totalMeeting/totalDb*100) : null;
+  return {rows, totalDb, totalMeeting, totalContract, totalRate};
+}
+
+function recalc(){
+  const dbTotal = state.dbChannels.reduce((s,i)=>s+(Number(i.value)||0),0);
+  document.getElementById('dbTotal').textContent = dbTotal.toLocaleString();
+
+  const otherDaysTotal = monthTotal - (state.savedDbTotal||0);
+  liveMonthCumul = otherDaysTotal + dbTotal;
+  document.getElementById('monthCumulDisplay').textContent = liveMonthCumul.toLocaleString()+'건';
+
+  const adTotal = state.adChannels.reduce((s,i)=>s+(Number(i.value)||0),0);
+  document.getElementById('adTotal').textContent = adTotal.toLocaleString();
+
+  const otherDaysAd = adMonthTotal - (state.savedAdTotal||0);
+  liveAdMonthCumul = otherDaysAd + adTotal;
+  document.getElementById('adMonthCumulDisplay').textContent = liveAdMonthCumul.toLocaleString()+'만원';
+
+  const contracts = state.metrics.contracts==='' ? null : Number(state.metrics.contracts);
+  const spend = (state.metrics.spend==='' || state.metrics.spend===undefined || state.metrics.spend===null) ? null : Number(state.metrics.spend); // 지출은 수기 입력값 사용
+  const dbCost = (liveMonthCumul>0 && spend!==null) ? spend/liveMonthCumul : null;
+  const cac = (contracts && contracts>0 && spend!==null) ? spend/contracts : null;
+  const conv = (liveMonthCumul>0 && contracts!==null) ? (contracts/liveMonthCumul*100) : null;
+  const region = getRegionAggregates();
+  const meetingRate = region.totalRate;
+
+  // 미수금 (월별 수기 리스트 합계)
+  const receivableTotal = state.receivables.reduce((s,i)=>s+(Number(i.value)||0),0);
+  document.getElementById('receivableTotal').textContent = receivableTotal.toLocaleString();
+
+  document.getElementById('stat_dbCost').innerHTML = dbCost!==null ? `<span class="num">${Math.round(dbCost).toLocaleString()}</span>만원` : '<span class="val na">측정불가</span>';
+  document.getElementById('stat_cac').innerHTML = cac!==null ? `<span class="num">${Math.round(cac).toLocaleString()}</span>만원` : '<span class="val na">측정불가</span>';
+  document.getElementById('stat_meeting').innerHTML = meetingRate!==null ? `<span class="num">${meetingRate.toFixed(0)}</span>%` : '<span class="val na">측정불가</span>';
+  document.getElementById('stat_conv').innerHTML = conv!==null ? `<span class="num">${conv.toFixed(1)}</span>%` : '<span class="val na">측정불가</span>';
+
+  // persist computed values for trend chart / report
+  state.metrics._computed = {spend, dbCost, cac, meetingRate, conv, receivableTotal};
+
+  renderKpiRow({dbTotal, liveMonthCumul, spend, dbCost, cac, meetingRate, conv, contracts, quality: state.metrics.quality, revenue: state.metrics.revenue, receivableTotal});
+  renderRegionRanking(region);
+}
+
+function kpiTile(label, val, suffix, cls, decimals, hero){
+  const na = val===null || val===undefined || val==='' || isNaN(val);
+  const d = decimals===undefined?0:decimals;
+  const display = na ? '측정불가' : (Number(val).toLocaleString('ko-KR',{minimumFractionDigits:d, maximumFractionDigits:d}) + suffix);
+  return `<div class="kpi ${cls}${hero?' hero':''}"><label>${label}</label><div class="v ${na?'na':''}">${display}</div></div>`;
+}
+function kpiGroup(title, tilesHtml){
+  return `<div class="kpi-group"><div class="kpi-group-title">${title}</div><div class="kpi-group-grid">${tilesHtml}</div></div>`;
+}
+function renderKpiRow(d){
+  const box = document.getElementById('kpiRow');
+  if(!box) return;
+
+  // 핵심 3개 지표 — 가장 먼저, 가장 크게
+  const hero = `<div class="hero-row">
+    ${kpiTile('월 누적 DB', d.liveMonthCumul, '건', 'manual', 0, true)}
+    ${kpiTile('DB당 단가', d.dbCost, '만원', 'auto', 0, true)}
+    ${kpiTile('DB 전환율', d.conv, '%', 'auto', 1, true)}
+  </div>`;
+
+  const groupDb = kpiGroup('오늘 · 성과율', [
+    kpiTile('오늘 DB', d.dbTotal, '건', 'manual', 0),
+    kpiTile('CAC 단가', d.cac, '만원', 'auto', 0),
+    kpiTile('미팅성사율', d.meetingRate, '%', 'auto', 0),
+  ].join(''));
+
+  const groupMoney = kpiGroup('비용 · 매출', [
+    kpiTile('지출', d.spend, '만원', 'manual', 0),
+    kpiTile('매출', d.revenue===''?null:Number(d.revenue), '만원', 'manual', 0),
+    kpiTile('미수금 합계', d.receivableTotal, '만원', 'manual', 0),
+  ].join(''));
+
+  const groupQuality = kpiGroup('품질 · 계약', [
+    kpiTile('품질율', d.quality===''?null:Number(d.quality), '%', 'manual', 0),
+    kpiTile('계약건수', d.contracts, '건', 'manual', 0),
+  ].join(''));
+
+  box.innerHTML = hero + groupDb + groupMoney + groupQuality;
+}
+
+function renderRegionRanking(region){
+  const rows = region.rows;
+  const maxRate = Math.max(...rows.map(r=>r.rate), 1);
+  const box = document.getElementById('regionRanking');
+  box.innerHTML = rows.map((r,i)=>`
+    <div class="bar-row">
+      <div class="bar-rank ${i===0?'r1':''}">${i+1}</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${(r.rate/maxRate*100).toFixed(0)}%"></div>
+        <div class="bar-label">${escapeHtml(r.name)} · ${r.db.toLocaleString()}건 / 미팅 ${r.meeting.toLocaleString()}건</div>
+      </div>
+      <div class="bar-pct num">${r.rate.toFixed(0)}%</div>
+    </div>`).join('');
+  document.getElementById('regionTotalNote').textContent =
+    rows.length ? `전체 ${region.totalDb.toLocaleString()} / ${region.totalMeeting.toLocaleString()} / ${(region.totalRate||0).toFixed(0)}% / 계약 ${region.totalContract.toLocaleString()}건` : '';
+
+  renderRegionChart(rows);
+}
+
+let regionChartInstance = null;
+function renderRegionChart(rows){
+  const box = document.getElementById('regionChartTop');
+  if(!box) return;
+  const shown = rows.filter(r=>r.name);
+  if(!shown.length){
+    box.innerHTML = '<div class="mini-bar-empty">3번에 지역 데이터를 입력하면 표시됩니다.</div>';
+    return;
+  }
+  const top = shown.slice(0,3);
+  const maxRate = Math.max(...top.map(r=>r.rate), 1);
+  let html = top.map((r,i)=>`
+    <div class="mini-bar-row">
+      <div class="mini-bar-rank ${i===0?'r1':''}">${i+1}</div>
+      <div class="mini-bar-track">
+        <div class="mini-bar-fill" style="width:${(r.rate/maxRate*100).toFixed(0)}%"></div>
+        <div class="mini-bar-label">${escapeHtml(r.name)}</div>
+      </div>
+      <div class="mini-bar-pct num">${r.rate.toFixed(0)}%</div>
+    </div>`).join('');
+  if(shown.length > 3){
+    html += `<div class="mini-bar-more">외 ${shown.length-3}개 지역 순위는 3번 카드에서 확인</div>`;
+  }
+  box.innerHTML = html;
+}
+
+// ---------- 순수 SVG 라인 차트 (외부 라이브러리 불필요) ----------
+function buildLineChartSVG(labels, series){
+  const width = 560, height = 210, pad = {l:32, r:10, t:12, b:22};
+  const w = width - pad.l - pad.r, h = height - pad.t - pad.b;
+  const allVals = series.flatMap(s=>s.data.filter(v=>v!=null && !isNaN(v)));
+  const maxV = Math.max(10, ...allVals, 0);
+  const n = labels.length;
+  const xStep = n>1 ? w/(n-1) : 0;
+  const xAt = i => pad.l + i*xStep;
+  const yAt = v => pad.t + h - (v/maxV)*h;
+
+  const grid = [0,0.5,1].map(f=>{
+    const y = pad.t + h - f*h;
+    const val = Math.round(f*maxV);
+    return `<line x1="${pad.l}" y1="${y}" x2="${width-pad.r}" y2="${y}" stroke="#E4E0ED" stroke-width="1"/>`+
+           `<text x="${pad.l-5}" y="${y+3}" font-size="9" fill="#9C97AE" text-anchor="end">${val}%</text>`;
+  }).join('');
+
+  const lines = series.map(s=>{
+    let path = '', started = false;
+    s.data.forEach((v,i)=>{
+      if(v==null || isNaN(v)){ started = false; return; }
+      path += (started ? ' L' : 'M') + xAt(i) + ',' + yAt(v);
+      started = true;
+    });
+    const dots = s.data.map((v,i)=> (v==null||isNaN(v)) ? '' : `<circle cx="${xAt(i).toFixed(1)}" cy="${yAt(v).toFixed(1)}" r="2.6" fill="${s.color}"/>`).join('');
+    return `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2"/>${dots}`;
+  }).join('');
+
+  const step = n>7 ? Math.ceil(n/6) : 1;
+  const xLabels = labels.map((l,i)=>{
+    if(i!==0 && i!==n-1 && i%step!==0) return '';
+    return `<text x="${xAt(i).toFixed(1)}" y="${height-6}" font-size="9" fill="#9C97AE" text-anchor="middle">${l}</text>`;
+  }).join('');
+
+  return `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${grid}${lines}${xLabels}</svg>`;
+}
+
+async function renderTrendChart(){
+  const box = document.getElementById('trendChartTop');
+  const legendBox = document.getElementById('trendLegend');
+  if(!box) return;
+  if(legendBox) legendBox.innerHTML = '';
+  if(!window.storage || !window.storage.list){
+    box.innerHTML = '<div class="mini-line-empty">저장된 기록이 쌓이면 추이가 표시됩니다.</div>';
+    return;
+  }
+  try{
+    const listRes = await window.storage.list('record:', false);
+    if(!listRes || !listRes.keys || !listRes.keys.length){
+      box.innerHTML = '<div class="mini-line-empty">날짜별로 "저장"을 누르면 여기에 14일 추이가 쌓입니다.</div>';
+      return;
+    }
+    const keys = listRes.keys.sort().slice(-14);
+    const points = [];
+    for(const k of keys){
+      try{
+        const rec = await window.storage.get(k, false);
+        if(rec && rec.value){
+          const parsed = JSON.parse(rec.value);
+          points.push({ date:k.replace('record:',''), c: (parsed.metrics && parsed.metrics._computed) || {} });
+        }
+      }catch(e){}
+    }
+    if(!points.length){
+      box.innerHTML = '<div class="mini-line-empty">날짜별로 "저장"을 누르면 여기에 14일 추이가 쌓입니다.</div>';
+      return;
+    }
+    const labels = points.map(p=>p.date.slice(5));
+    const meeting = points.map(p=> p.c.meetingRate==null ? null : Number(p.c.meetingRate.toFixed(1)));
+    const conv = points.map(p=> p.c.conv==null ? null : Number(p.c.conv.toFixed(1)));
+    const series = [
+      { label:'미팅성사율%', color:'#5B3DE0', data:meeting },
+      { label:'전환율(계약)%', color:'#C24A2D', data:conv },
+    ];
+    box.innerHTML = buildLineChartSVG(labels, series);
+    if(legendBox){
+      legendBox.innerHTML = series.map(s=>`<span><span class="dot" style="background:${s.color}"></span>${s.label}</span>`).join('');
+    }
+  }catch(err){
+    box.innerHTML = '<div class="mini-line-empty">추이를 불러오지 못했습니다.</div>';
+  }
+}
+
+// ---------- report text (1,2,3,4 only — no 매체별 광고비 상세) ----------
+function fmtOrNA(val, suffix){
+  if(val===''||val===null||val===undefined) return '측정불가';
+  return `${val}${suffix||''}`;
+}
+// 숫자 값은 전부 이 함수로 통일 (천단위 콤마, 불필요한 소수점 제거)
+function fmtNumOrNA(val, suffix, decimals){
+  if(val===''||val===null||val===undefined||isNaN(Number(val))) return '측정불가';
+  const d = decimals===undefined ? 0 : decimals;
+  return `${Number(val).toLocaleString('ko-KR',{minimumFractionDigits:d, maximumFractionDigits:d})}${suffix||''}`;
+}
+function generateReport(){
+  const rd = getRefDates();
+  const [,moDb,dDb] = rd.db.split('-');
+  const [,moRegion,dRegion] = rd.region.split('-');
+  const [,moResp,dResp] = rd.resp.split('-');
+  const dbTotal = state.dbChannels.reduce((s,i)=>s+(Number(i.value)||0),0);
+  const c = state.metrics._computed || {};
+  const region = getRegionAggregates();
+
+  let out = '';
+  out += `1. 창업마케팅 주요 데이터 (${Number(moDb)}/${Number(dDb)} 기준, 전일 기준)\n\n`;
+  out += `* 창업 DB 문의량\n`;
+  out += `   * ${Number(moDb)}월 ${Number(dDb)}일 창업 DB : ${dbTotal.toLocaleString()}건 (${state.dbChannels.filter(x=>x.value>0).map(x=>x.name).join(', ')||'-'})\n`;
+  out += `      * ${Number(moDb)}월 누적 DB : ${liveMonthCumul.toLocaleString()}건\n\n`;
+
+  out += `2. 기준 창업데이터 - ${Number(moDb)}/${Number(dDb)} 기준 (전일 기준)\n`;
+  out += `- DB당 단가(누적 DB 기준) : ${fmtNumOrNA(c.dbCost,'만 원',0)}\n`;
+  out += `- CAC 단가 : ${fmtNumOrNA(c.cac,'만 원',0)}\n`;
+  out += `- DB 품질율(긍정) : ${fmtNumOrNA(state.metrics.quality,'%',0)}\n`;
+  out += `- DB 성사율(미팅) : ${fmtNumOrNA(c.meetingRate,'%',0)}\n`;
+  out += `- DB 전환율(계약율, 누적 DB 기준) : ${fmtNumOrNA(c.conv,'%',1)}\n`;
+  out += `- 계약 건 수 : ${fmtNumOrNA(state.metrics.contracts,'건',0)}\n`;
+  out += `- 지출(수기입력) : ${fmtNumOrNA(state.metrics.spend,'만 원',0)}\n`;
+  out += `- 매출 : ${fmtNumOrNA(state.metrics.revenue,'만 원',0)}\n`;
+  const recvRows = state.receivables.filter(r=>r.name);
+  if(recvRows.length){
+    out += `- 미수금 현황\n`;
+    recvRows.forEach((r,i)=>{
+      out += `   (${i+1}) ${r.name} 미수금 : ${fmtNumOrNA(r.value||0,'만 원',0)}\n`;
+    });
+  } else {
+    out += `- 미수금 현황 : 측정불가\n`;
+  }
+  out += `\n`;
+
+  out += `3. 기준 미팅 성사율 - ${Number(moRegion)}/${Number(dRegion)} 기준 (영업일 2일 전 기준)\n`;
+  out += `지역 / DB건수 / 미팅건수 / 미팅성사율 / 전환율(건수)\n`;
+  out += `------------------------------------------------\n`;
+  region.rows.forEach((r,i)=>{
+    out += `${i+1}위 ${r.name} ${r.db.toLocaleString()} / ${r.meeting.toLocaleString()} / ${r.rate.toFixed(0)}% / ${r.contract.toLocaleString()}건\n`;
+  });
+  out += `------------------------------------------------\n`;
+  out += `전체 ${region.totalDb.toLocaleString()} / ${region.totalMeeting.toLocaleString()} / ${(region.totalRate||0).toFixed(0)}% / ${region.totalContract.toLocaleString()}건\n`;
+  out += `※ ${Number(moRegion)}월 미팅성사율 기준으로 책정된 순위입니다.\n\n`;
+
+  out += `4. 응대 현황 - ${Number(moResp)}/${Number(dResp)} 기준 (당일 기준)\n`;
+  state.managers.filter(m=>m.name).forEach(m=>{
+    const doneStr = m.done ? `${Number(m.done.split('-')[2])}일 건까지 완료` : '진행중';
+    out += `${m.name} 지역장님 : ${doneStr}\n`;
+  });
+
+  document.getElementById('reportBox').value = out;
+  showToast('보고용 텍스트가 생성되었습니다');
+}
+
+function copyReport(){
+  const box = document.getElementById('reportBox');
+  if(!box.value){ generateReport(); }
+  box.select();
+  navigator.clipboard.writeText(box.value).then(()=>showToast('복사되었습니다')).catch(()=>{
+    document.execCommand('copy');
+    showToast('복사되었습니다');
+  });
+}
+
+// ---------- storage ----------
+async function saveRecord(){
+  const dateStr = document.getElementById('dateInput').value || todayStr();
+  const ym = getYearMonth(dateStr);
+  const dbTotalNow = state.dbChannels.reduce((s,i)=>s+(Number(i.value)||0),0);
+  const delta = dbTotalNow - (state.savedDbTotal||0);
+  monthTotal += delta;
+  state.savedDbTotal = dbTotalNow;
+
+  const adTotalNow = state.adChannels.reduce((s,i)=>s+(Number(i.value)||0),0);
+  const deltaAd = adTotalNow - (state.savedAdTotal||0);
+  adMonthTotal += deltaAd;
+  state.savedAdTotal = adTotalNow;
+  try{
+    await window.storage.set('record:'+dateStr, JSON.stringify(state), false);
+    await window.storage.set('monthTotal:'+ym, String(monthTotal), false);
+    await window.storage.set('adMonthTotal:'+ym, String(adMonthTotal), false);
+    await window.storage.set('lastConfig', JSON.stringify(state), false);
+    showToast('저장되었습니다 ('+dateStr+', 이번 달 누적 DB '+monthTotal.toLocaleString()+'건 / 누적 지출 '+adMonthTotal.toLocaleString()+'만원)');
+    recalc();
+    renderTrendChart();
+  }catch(err){
+    showToast('저장 실패: 다시 시도해주세요');
+  }
+}
+
+async function loadMonthTotal(dateStr){
+  const ym = getYearMonth(dateStr);
+  try{
+    const res = await window.storage.get('monthTotal:'+ym, false).catch(()=>null);
+    monthTotal = (res && res.value) ? Number(res.value) : 0;
+  }catch(e){ monthTotal = 0; }
+}
+
+async function loadAdMonthTotal(dateStr){
+  const ym = getYearMonth(dateStr);
+  try{
+    const res = await window.storage.get('adMonthTotal:'+ym, false).catch(()=>null);
+    adMonthTotal = (res && res.value) ? Number(res.value) : 0;
+  }catch(e){ adMonthTotal = 0; }
+}
+
+async function loadRecord(){
+  const dateStr = document.getElementById('dateInput').value || todayStr();
+  try{
+    const res = await window.storage.get('record:'+dateStr, false);
+    if(res && res.value){
+      state = JSON.parse(res.value);
+      if(!state.metrics) state.metrics = {contracts:'', quality:'', revenue:'', spend:''};
+      if(state.metrics.spend===undefined) state.metrics.spend = '';
+      if(!state.receivables) state.receivables = [];
+      if(state.savedDbTotal===undefined) state.savedDbTotal = 0;
+      if(state.savedAdTotal===undefined) state.savedAdTotal = 0;
+      showToast('불러왔습니다 ('+dateStr+')');
+    } else {
+      const last = await window.storage.get('lastConfig', false).catch(()=>null);
+      if(last && last.value){
+        const prev = JSON.parse(last.value);
+        state = {
+          dbChannels: prev.dbChannels.map(c=>({...c, value:0})),
+          adChannels: prev.adChannels.map(c=>({...c, value:0})),
+          regions: prev.regions.map(r=>({...r, db:0, meeting:0, contract:0})),
+          managers: prev.managers.map(m=>({...m, done:''})),
+          metrics: {contracts:'', quality:'', revenue:'', spend:''},
+          receivables: (prev.receivables||[]).map(r=>({...r})), // 미수금 리스트는 그대로 이어받음 (걷힐 때까지 유지되는 값)
+          savedDbTotal: 0,
+          savedAdTotal: 0
+        };
+      } else {
+        state = defaultConfig();
+      }
+      showToast('새 날짜입니다. 이전 채널 구성을 불러왔습니다');
+    }
+  }catch(err){
+    state = defaultConfig();
+  }
+  ensureStandardRegions();
+  await loadMonthTotal(dateStr);
+  await loadAdMonthTotal(dateStr);
+  renderAll();
+  renderTrendChart();
+}
+
+document.getElementById('saveBtn').addEventListener('click', saveRecord);
+document.getElementById('loadBtn').addEventListener('click', loadRecord);
+document.getElementById('dateInput').addEventListener('change', loadRecord);
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  const dateStr = document.getElementById('dateInput').value || todayStr();
+  const ok = confirm(dateStr+' 기록을 기본값(지역 8개·광고채널 6개·지역장 8명)으로 초기화할까요?\n저장을 눌러야 실제로 반영됩니다.');
+  if(!ok) return;
+  state = defaultConfig();
+  renderAll();
+  showToast('기본값으로 초기화했습니다. 저장을 눌러 확정하세요.');
+});
+
+document.getElementById('dateInput').value = todayStr();
+loadRecord();
+</script>
+</body>
+</html>
